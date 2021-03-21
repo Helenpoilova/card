@@ -1,0 +1,87 @@
+# Card number check
+# Developers: Poylova E. 
+def main():
+    while True:
+        ncard = input()
+        cleancard(ncard)
+        cheak(ncard)
+        if cheak(ncard)==None:
+            print("Номер карты неправильный. Введите другой номер: ")
+            continue
+        else:
+            if cheak1(ncard)==None:
+                print("Номер карты неправильный. Введите другой номер: ")
+                continue
+            else:
+                if cheak2(ncard)==None:
+                    print("Номер карты неправильный. Введите другой номер: ")
+                    continue
+
+def cleancard(ncard):
+    return ncard.replace(" ", "")
+def cheak(ncard):
+    l=len(cleancard(ncard))
+    l1=[14,15,16]
+    if l in l1:
+        return ncard
+    else:
+        return
+
+def cheak1(ncard):
+    if ncard[0]=="4":
+        print("карта Visa")
+        return ncard
+    elif ncard[0]=="5":
+        print("кредитная карта MasterCard")
+        return ncard
+    elif ncard[0]=="6":
+        print("карта Discover")
+        return ncard
+    elif ncard[0]=="2":
+        print("национальная платежная система ""Мир""")
+        return ncard
+    elif ncard[0:2]=="37":
+        print("карта American Express")
+        return ncard
+    else:
+        return
+def cheak2(ncard):
+    ncard2 = list(cleancard(ncard))
+    dig=['1','2','3','4','5','6','7','8','9','0']
+    l=len(cleancard(ncard))
+    for i in range(1,l,1):
+        if ncard2[i] in dig:
+            continue
+            print("Ок")
+        else:
+            return
+    ncard3=ncard2[::-1]
+    ncard4=ncard3[1::2]
+    l2=len(ncard4)
+    sum1=0
+    for i in range(0,l2,1):
+        ncard5=int(ncard4[i])
+        a=ncard5*2
+        if a<=9:
+            sum1=sum1+a
+            continue
+        else:
+            b=str(a)
+            c=int(b[0])+int(b[1])
+            sum1=sum1+c
+            continue
+    ncard6=ncard3[::2]
+    l3=len(ncard6)
+    sum2=0
+    for i in range(0,l3,1):
+        p=int(ncard6[i])
+        sum2=sum2+p
+        continue
+    sum=sum1+sum2
+    if sum%10==0:
+        print("Номер карты правильный.")
+        return ""
+    else:
+        print("Номер карты неправильный. Введите другой номер: ")
+        return
+main()
